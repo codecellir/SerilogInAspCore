@@ -1,1 +1,1 @@
-# SerilogInAspCpre
+# SerilogInAspCore
