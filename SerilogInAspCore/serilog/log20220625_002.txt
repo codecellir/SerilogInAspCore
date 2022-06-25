@@ -1,0 +1,2 @@
+2022-06-25 19:52:16.834 +04:30 [ERR] Processed serialize {"Latitude":25,"Longitude":134} in 034 ms.
+2022-06-25 19:52:16.877 +04:30 [ERR] Processed tostring { Latitude = 25, Longitude = 134 } in 034 ms.

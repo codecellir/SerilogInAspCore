@@ -6,8 +6,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-Log.Logger=new LoggerConfiguration()
-    .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+//Log.Logger=new LoggerConfiguration()
+//    .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+//    .MinimumLevel.Error()
+//    .CreateLogger();
+
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.File("serilog/log.txt", rollingInterval: RollingInterval.Day, fileSizeLimitBytes: 205, rollOnFileSizeLimit: true,retainedFileCountLimit:null)
     .MinimumLevel.Error()
     .CreateLogger();
 
