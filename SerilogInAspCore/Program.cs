@@ -18,36 +18,40 @@ builder.Services.AddControllersWithViews();
 //    .MinimumLevel.Error()
 //    .CreateLogger();
 
-var connStr = "Server=.;Database=seriloger;Integrated Security=True;TrustServerCertificate=True";
-var sinkOptions = new Serilog.Sinks.MSSqlServer.MSSqlServerSinkOptions
-{
-    TableName = "LogTbl",
-    AutoCreateSqlTable = true
-};
-var columnOpts = new ColumnOptions();
-columnOpts.Store.Remove(StandardColumn.Properties);
-columnOpts.Store.Add(StandardColumn.LogEvent);
-columnOpts.LogEvent.DataLength = 2048;
-columnOpts.Id.DataType = System.Data.SqlDbType.BigInt;
-columnOpts.AdditionalColumns = new Collection<SqlColumn>
-{
-    new SqlColumn
-    {
-        ColumnName="ReqUri",
-        AllowNull=true,
-        DataType=System.Data.SqlDbType.NVarChar,
-        DataLength=2048,
-        PropertyName="Position"
-    }
-};
+//var connStr = "Server=.;Database=seriloger;Integrated Security=True;TrustServerCertificate=True";
+//var sinkOptions = new Serilog.Sinks.MSSqlServer.MSSqlServerSinkOptions
+//{
+//    TableName = "LogTbl",
+//    AutoCreateSqlTable = true
+//};
+//var columnOpts = new ColumnOptions();
+//columnOpts.Store.Remove(StandardColumn.Properties);
+//columnOpts.Store.Add(StandardColumn.LogEvent);
+//columnOpts.LogEvent.DataLength = 2048;
+//columnOpts.Id.DataType = System.Data.SqlDbType.BigInt;
+//columnOpts.AdditionalColumns = new Collection<SqlColumn>
+//{
+//    new SqlColumn
+//    {
+//        ColumnName="ReqUri",
+//        AllowNull=true,
+//        DataType=System.Data.SqlDbType.NVarChar,
+//        DataLength=2048,
+//        PropertyName="Position"
+//    }
+//};
+
+//Log.Logger = new LoggerConfiguration()
+//    .WriteTo.MSSqlServer(
+//    connectionString: connStr,
+//    sinkOptions: sinkOptions,
+//    columnOptions:columnOpts
+//    )
+//    .MinimumLevel.Error()
+//    .CreateLogger();
 
 Log.Logger = new LoggerConfiguration()
-    .WriteTo.MSSqlServer(
-    connectionString: connStr,
-    sinkOptions: sinkOptions,
-    columnOptions:columnOpts
-    )
-    .MinimumLevel.Error()
+    .WriteTo.Seq("http://localhost:5341")
     .CreateLogger();
 
 builder.Host.UseSerilog();
