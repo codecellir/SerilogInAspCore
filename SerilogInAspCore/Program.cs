@@ -8,6 +8,12 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+var config = builder.Configuration.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true).Build();
+
+Log.Logger = new LoggerConfiguration()
+                        .ReadFrom.Configuration(config)
+                        .CreateLogger();
+
 //Log.Logger=new LoggerConfiguration()
 //    .WriteTo.Console(theme: AnsiConsoleTheme.Code)
 //    .MinimumLevel.Error()
@@ -50,9 +56,9 @@ builder.Services.AddControllersWithViews();
 //    .MinimumLevel.Error()
 //    .CreateLogger();
 
-Log.Logger = new LoggerConfiguration()
-    .WriteTo.Seq("http://localhost:5341")
-    .CreateLogger();
+//Log.Logger = new LoggerConfiguration()
+//    .WriteTo.Seq("http://localhost:5341")
+//    .CreateLogger();
 
 builder.Host.UseSerilog();
 

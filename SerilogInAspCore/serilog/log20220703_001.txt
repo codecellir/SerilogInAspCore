@@ -1,1 +1,0 @@
-2022-07-03 20:19:51.129 +04:30 [ERR] Processed tostring { Latitude = 25, Longitude = 134 } in 034 ms.
